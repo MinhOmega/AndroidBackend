@@ -1,0 +1,25 @@
+﻿@using SWHRMS.Web.Views.Shared.Components.SideBarUserArea
+@model SideBarUserAreaViewModel
+@if (Model.LoginInformations != null && Model.LoginInformations.User != null)
+{
+    <div class="user-info">
+        <div class="image">
+            <img src="~/images/user.png" width="48" height="48" alt="User" />
+        </div>
+        <div class="info-container">
+            <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">person</i><span>@Html.Raw(Model.LoginInformations.User.Name)</span>
+            </div>
+            <div class="email">
+                <i class="material-icons">email</i>
+                <span>@Model.LoginInformations.User.EmailAddress</span>
+            </div>
+        </div>
+        <div class="btn-group user-helper-dropdown">
+            <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+            <ul class="dropdown-menu pull-right">
+                <li><a href="@Url.Action("Logout", "Account", new { area= string.Empty })"><i class="material-icons">input</i>@L("Logout")</a></li>
+            </ul>
+        </div>
+    </div>
+}

@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <RootNamespace>SWHRMS</RootNamespace>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Migrations\20180726102624_Upgrade_ABP_380.cs" />
+    <Compile Remove="Migrations\20180927062408_test.cs" />
+    <Compile Remove="Migrations\20190111071724_Upgraded_To_Abp_v4_1_0.cs" />
+    <Compile Remove="Migrations\20190722024749_Update Branch.cs" />
+    <Compile Remove="Migrations\20190722024749_Update Branch.Designer.cs" />
+    <Compile Remove="Migrations\20190722025905_Update Branch.cs" />
+    <Compile Remove="Migrations\20190722025905_Update Branch.Designer.cs" />
+    <Compile Remove="Migrations\20190722154934_Update Branch Keys.cs" />
+    <Compile Remove="Migrations\20190722154934_Update Branch Keys.Designer.cs" />
+    <Compile Remove="Migrations\20190724015856_add absence.cs" />
+    <Compile Remove="Migrations\20190724015856_add absence.Designer.cs" />
+    <Compile Remove="Migrations\20190731020925_Add Meta info Add Positions.cs" />
+    <Compile Remove="Migrations\20190731020925_Add Meta info Add Positions.Designer.cs" />
+    <Compile Remove="Migrations\20190731021026_Add Meta info Add Positions.cs" />
+    <Compile Remove="Migrations\20190731021026_Add Meta info Add Positions.Designer.cs" />
+    <Compile Remove="Migrations\20190731021545_Add Meta info Add Positions.cs" />
+    <Compile Remove="Migrations\20190731021545_Add Meta info Add Positions.Designer.cs" />
+    <Compile Remove="Migrations\20190801083923_Update Attendance Table Add QR Table.cs" />
+    <Compile Remove="Migrations\20190801083923_Update Attendance Table Add QR Table.Designer.cs" />
+    <Compile Remove="Migrations\20190812042030_Add Skill Table.cs" />
+    <Compile Remove="Migrations\20190812042030_Add Skill Table.Designer.cs" />
+    <Compile Remove="Migrations\20190812085442_Update Skill Table.cs" />
+    <Compile Remove="Migrations\20190812085442_Update Skill Table.Designer.cs" />
+    <Compile Remove="Migrations\20190812092751_Add Default levels.cs" />
+    <Compile Remove="Migrations\20190812092751_Add Default levels.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SWHRMS.Core\SWHRMS.Core.csproj" />
+  </ItemGroup>
+</Project>

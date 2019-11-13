@@ -1,0 +1,65 @@
+﻿@using SWHRMS.Web.Startup
+@model SWHRMS.Web.Models.Skills.SkillsViewModel
+
+@{
+    ViewBag.CurrentPageName = PageNames.Skills; // The menu item will be active for this page.
+}
+@section styles {
+    <link href="~/lib/morris.js/morris.css" rel="stylesheet" asp-append-version="true" />
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/view-resources/Views/Skills/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/_Bundles/skills-index.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="block-header">
+    <h2>@L("MySkills")</h2>
+</div>
+<div class="row clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="header bg-unique-dark">
+                <h2>@L("SkillList")</h2>
+            </div>
+            <div class="body" style="padding-bottom:45px">
+                <table class="table table-hover" id="jtable1">
+                    <thead>
+                        <tr>
+                            <th>@L("SkillName")</th>
+                            <th>@L("Level")</th>
+                            <th>@L("UpdateTime")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var userSkill in Model.User.UserSkills)
+                        {
+                            <tr id="row_@userSkill.Id">
+                                <td>@(Model.Skills.FirstOrDefault(s => s.Id == userSkill.SkillId).SkillName)</td>
+                                <td>@(Model.Levels.FirstOrDefault(s => s.Id == userSkill.LevelId).Name)</td>
+                                <td>@(userSkill.LastModificationTime == null ? "" : userSkill.LastModificationTime.ToString())</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-raised waves-effect waves-float btn-absolute edit-user-skill" data-user-skill-id="@Model.User.Id" data-toggle="modal" data-target="#UserSkillEditModal">
+                    <i class="material-icons">edit</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="UserSkillEditModal" tabindex="-1" role="dialog" aria-labelledby="UserSkillEditModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>

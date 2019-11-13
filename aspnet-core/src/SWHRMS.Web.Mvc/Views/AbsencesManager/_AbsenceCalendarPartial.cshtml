@@ -1,0 +1,74 @@
+﻿
+@model SWHRMS.Web.Models.Absence.AbsenceCalendarPartialViewModelViewModel
+
+@{
+    Layout = null;
+
+    var getDate = DateTime.Now;
+    var firstDayOfTheMonth = new DateTime(getDate.Year, getDate.Month, 1);
+    var firstDayOfNextMonth = firstDayOfTheMonth.AddMonths(1);
+    var daysOffList = new List<string> { "Sunday", "Saturday" };
+    DateTime startDate = firstDayOfTheMonth.AddDays(-(int)firstDayOfTheMonth.DayOfWeek);
+}
+@section styles {
+    <link href="~/lib/morris.js/morris.css" rel="stylesheet" asp-append-version="true" />
+    <style>
+        .table td, .table th {
+            min-width: 50px;
+        }
+    </style>
+}
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th style="text-align:center">@firstDayOfTheMonth.Month / @firstDayOfTheMonth.Year</th>
+            @for (int i = 0; i < DateTime.DaysInMonth(firstDayOfTheMonth.Year, firstDayOfTheMonth.Month); i++)
+            {
+                DateTime date = firstDayOfTheMonth.AddDays(i);
+                <th class="col-md-1" style="text-align:center; color:@(daysOffList.Contains(date.DayOfWeek.ToString()) ? "red":"");">@date.DayOfWeek.ToString().Substring(0, 3)</th>
+            }
+        </tr>
+        <tr>
+            <th>@L("FullName")</th>
+            @for (int i = 0; i < DateTime.DaysInMonth(firstDayOfTheMonth.Year, firstDayOfTheMonth.Month); i++)
+            {
+                DateTime date = firstDayOfTheMonth.AddDays(i);
+                <th class="col-md-1" style="text-align:center; color:@(daysOffList.Contains(date.DayOfWeek.ToString()) ? "red":"");">@date.Day</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td style="max-width: 200px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">@user.FullName</td>
+                @for (int i = 0; i < DateTime.DaysInMonth(firstDayOfTheMonth.Year, firstDayOfTheMonth.Month); i++)
+                {
+                    DateTime date = firstDayOfTheMonth.AddDays(i);
+                    @if (daysOffList.Contains(date.DayOfWeek.ToString()))
+                    {
+                        <td></td>
+                    }
+                    else
+                    {
+                        <td class="@((user.Absences.Any(x => x.StartDate <= date.AddHours(13) && x.EndDate >= date) ?
+                                            (user.Absences.Any(x => x.StartDate <= date.AddHours(13) && x.EndDate >= date && x.Status == 2) ? "bg-deep-orange" :
+                                            user.Absences.Any(x => x.StartDate <= date.AddHours(13) && x.EndDate >= date && x.Status == 1) ? "bg-green" : "bg-blue-grey")
+                                            :""))" style="text-align:center">
+                            <i class="material-icons">
+                                @if (user.Absences.Any(x => x.StartDate <= date.AddHours(13) && x.EndDate >= date))
+                                {
+                                    @(user.Absences.Any(x => x.StartDate <= date.AddHours(13) && x.EndDate >= date && x.Status != 0) ? "check_box" : "indeterminate_check_box")
+                                }
+                                else
+                                {
+                                    @(date > DateTime.Now ? "" : "check")
+                                }
+                            </i>
+                        </td>
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+</table>

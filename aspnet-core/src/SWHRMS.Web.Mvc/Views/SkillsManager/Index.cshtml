@@ -1,0 +1,168 @@
+﻿@using SWHRMS.Web.Startup
+@model SWHRMS.Web.Models.Skills.SkillsManagerViewModel
+
+@{
+    ViewBag.CurrentPageName = PageNames.SkillsManage; // The menu item will be active for this page.
+
+    var skillNum = 0;
+}
+@section styles {
+    <link href="~/lib/morris.js/morris.css" rel="stylesheet" asp-append-version="true" />
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/lib/jquery-countTo/jquery.countTo.js" asp-append-version="true"></script>
+        <script src="~/lib/raphael/raphael.js" asp-append-version="true"></script>
+        <script src="~/lib/morris.js/morris.js" asp-append-version="true"></script>
+        <script src="~/lib/chart.js/dist/Chart.bundle.js" asp-append-version="true"></script>
+        <script src="~/lib/Flot/jquery.flot.js" asp-append-version="true"></script>
+        <script src="~/lib/Flot/jquery.flot.resize.js" asp-append-version="true"></script>
+        <script src="~/lib/Flot/jquery.flot.pie.js" asp-append-version="true"></script>
+        <script src="~/lib/Flot/jquery.flot.categories.js" asp-append-version="true"></script>
+        <script src="~/lib/Flot/jquery.flot.time.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-sparkline/dist/jquery.sparkline.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Views/SkillManage/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/_Bundles/skillmanage-index.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="block-header">
+    <h2>@L("SkillsManageSection")</h2>
+</div>
+<div class="row clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+            <div class="header bg-unique-dark">
+                <h2>@L("SkillList")</h2>
+            </div>
+            <div class="body" style="padding-bottom:45px">
+                <table class="table table-hover" id="jtable1">
+                    <thead>
+                        <tr>
+                            <th>@L("SkillName")</th>
+                            <th>@L("CreationTime")</th>
+                            @foreach (var level in Model.Levels)
+                            {
+                                <th class="col-level">
+                                    @(string.Format(L("NumberOfUsersAtLevel"), level.Name))
+                                </th>
+                            }
+                            <th>@L("Actions")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var skill in Model.Skills)
+                        {
+                            <tr id="row_@skill.Id">
+                                <td><span class="label" style="color:#fff; background-color:@(skill.ColorCode);">@skill.SkillName</span></td>
+                                <td>@skill.CreationTime</td>
+                                @foreach (var level in Model.Levels)
+                                {
+                                    <td>
+                                        @(level.UserSkills.Where(us => us.SkillId == skill.Id).Select(us => us.UserId).Distinct().Count())
+                                    </td>
+                                }
+                                <td>
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <i class="material-icons">menu</i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li><a href="#" class="waves-effect waves-block edit-skill" data-skill-id="@skill.Id" data-toggle="modal" data-target="#SkillEditModal"><i class="material-icons">edit</i>@L("Detail")</a></li>
+                                            <li><a href="#" class="waves-effect waves-block delete-skill" data-skill-id="@skill.Id"><i class="material-icons">delete_sweep</i>@L("Delete")</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float btn-absolute create-skill" data-toggle="modal" data-target="#SkillCreateModal">
+                    <i class="material-icons">add</i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+            <div class="header bg-unique-dark">
+                <h2>@L("SkillProportion")</h2>
+            </div>
+            <div class="body">
+                <div id="donut_chart" class="dashboard-donut-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="header bg-unique-dark">
+                <h2>@L("UserSkillTable")</h2>
+            </div>
+            <div class="body" style="padding-bottom:45px">
+                <table class="table table-striped table-bordered" id="jtable2">
+                    <thead>
+                        <tr>
+                            <th>@L("FullName")</th>
+                            @foreach (var skill in Model.Skills)
+                            {
+                                <th class="col-skill">
+                                    <span class="label" style="color:#fff; background-color:@(skill.ColorCode);">@skill.SkillName</span>
+                                </th>
+                            }
+                            <th class="align-center">@L("Actions")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model.Users)
+                        {
+                            <tr id="row_@user.Id">
+                                <td>@user.FullName</td>
+                                @foreach (var skill in Model.Skills)
+                                {
+                                    <td class="@(skill.UserSkills.Where(us => us.UserId == user.Id).FirstOrDefault() == null ? "" : "bg-blue-grey")">
+                                        @(skill.UserSkills.Where(us => us.UserId == user.Id).FirstOrDefault() == null ? "" : 
+                                        skill.UserSkills.Where(us => us.UserId == user.Id).FirstOrDefault().Level == null ? "" : skill.UserSkills.Where(us => us.UserId == user.Id).FirstOrDefault().Level.Name)
+                                    </td>
+                                }
+                                <td class="align-center">
+                                    <button type="button" class="btn btn-transparent waves-effect edit-user-skill" id=" edit-user-skill" data-user-skill-id="@user.Id" data-toggle="modal" data-target="#UserSkillEditModal"><i class="material-icons">edit</i>@L("Edit")</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="SkillCreateModal" tabindex="-1" role="dialog" aria-labelledby="SkillCreateModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="SkillEditModal" tabindex="-1" role="dialog" aria-labelledby="SkillEditModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="UserSkillEditModal" tabindex="-1" role="dialog" aria-labelledby="UserSkillEditModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>

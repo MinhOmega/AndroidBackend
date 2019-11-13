@@ -1,0 +1,528 @@
+﻿@using Abp.Authorization.Users
+@using SWHRMS.Web.Startup
+@model SWHRMS.Web.Models.Home.HomeViewModel
+@{
+    ViewBag.CurrentPageName = PageNames.Home; // The menu item will be active for this page.
+}
+@section styles {
+    <link href="~/lib/morris.js/morris.css" rel="stylesheet" asp-append-version="true" />
+}
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/lib/jquery-countTo/jquery.countTo.js" asp-append-version="true"></script>
+        <script src="~/lib/raphael/raphael.js" asp-append-version="true"></script>
+        <script src="~/lib/morris.js/morris.js" asp-append-version="true"></script>
+        <script src="~/lib/chart.js/dist/Chart.bundle.js" asp-append-version="true"></script>
+        <script src="~/lib/Flot/jquery.flot.js" asp-append-version="true"></script>
+        <script src="~/lib/Flot/jquery.flot.resize.js" asp-append-version="true"></script>
+        <script src="~/lib/Flot/jquery.flot.pie.js" asp-append-version="true"></script>
+        <script src="~/lib/Flot/jquery.flot.categories.js" asp-append-version="true"></script>
+        <script src="~/lib/Flot/jquery.flot.time.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-sparkline/dist/jquery.sparkline.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Views/Home/Index.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/_Bundles/home-index.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div class="card profile-card">
+            <div class="profile-header">&nbsp;</div>
+            <div class="profile-body">
+                <div class="image-area">
+                    <img src="/images/user-avatar.png" alt="AdminBSB - Profile Image" height="128" width="128">
+                </div>
+                <div class="content-area">
+                    <h3>@Model.User.FullName</h3>
+                    <p>@(Model.User.Branch != null ? Model.User.Branch.Name : "")</p>
+                    <p>@(Model.User.Position != null ? Model.User.Position.PositionName : "")</p>
+                </div>
+            </div>
+        </div>
+        <div class="card card-about-me">
+            <div class="header">
+                <h2>@L("Skills")</h2>
+                <button type="button" class="btn btn-default waves-effect waves-float pull-right edit-user-skill" data-user-skill-id="@Model.User.Id" data-toggle="modal" data-target="#UserSkillEditModal">
+                    <i class="material-icons">edit</i>
+                </button>
+            </div>
+            <div class="body">
+                <ul>
+                    @foreach (var skill in Model.User.UserSkills)
+                    {
+                        <li>
+                            <span class="label" style="color:#fff; background-color:@(skill.Skill.ColorCode);">@(skill.Skill != null ? skill.Skill.SkillName : "")</span>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @(skill.Level.Progress)%;">
+                                    @(skill.Level != null ? skill.Level.Name : "")
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+        <div class="card">
+            <div class="body">
+                <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                    <li role="presentation" class="active"><a href="#edit-user-details" data-toggle="tab">@L("UserDetails")</a></li>
+                    <li role="presentation"><a href="#edit-company-info" data-toggle="tab">@L("CompanyInfo")</a></li>
+                    <li role="presentation"><a href="#edit-password" data-toggle="tab">@L("ChangePassword")</a></li>
+                </ul>
+            </div>
+            <div class="body" style="max-height:750px;overflow-y: auto;">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane animated fadeIn active" id="edit-user-details">
+                        <form name="UserEditForm" role="form" novalidate class="form-validation">
+                            <input type="hidden" name="Id" value="@Model.User.Id" />
+                            <div class="row clearfix">
+                                @*col-container-equal*@
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="fit card ">
+                                        <div class="header bg-unique-dark">
+                                            <h2>
+                                                @L("AccountInfo")
+                                            </h2>
+                                        </div>
+                                        <div class="body">
+                                            <div class="row clearfix">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line">
+                                                            <input id="username" type="text" name="UserName" value="@Model.User.UserName" required maxlength="32" minlength="2" class="validate form-control">
+                                                            <label for="username" class="form-label">@L("UserName")</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row clearfix">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line">
+                                                            <input id="name" type="text" name="Name" value="@Model.User.Name" required maxlength="32" class="validate form-control">
+                                                            <label for="name" class="form-label">@L("Name")</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line">
+                                                            <input id="surname" type="text" name="Surname" value="@Model.User.Surname" required maxlength="32" class="validate form-control">
+                                                            <label for="surname" class="form-label">@L("Surname")</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row clearfix">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line">
+                                                            <input id="email" type="email" name="EmailAddress" required value="@Model.User.EmailAddress" maxlength="256" class="validate form-control">
+                                                            <label for="email" class="form-label">@L("EmailAddress")</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row clearfix">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group form-float">
+                                                        <div class="">
+                                                            <input id="IsActive" type="checkbox" name="IsActive" value="true" @(Model.User.IsActive ? "checked" : "") class="form-control" />
+                                                            <label for="IsActive" class="form-label">@L("IsActive")</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="fit card ">
+                                        <div class="header bg-unique-dark">
+                                            <h2>@L("OtherInfo")</h2>
+                                            <span class="header-dropdown">
+                                                <button type="button" class="btn btn-transparent waves-effect add-other-info" data-toggle="modal" data-target="#OtherInfoCreateModal"><i class="material-icons">add</i></button>
+                                            </span>
+                                        </div>
+                                        <div class="body">
+                                            <div class="row clearfix">
+                                                <div class="col-sm-12 ">
+                                                    @foreach (var meta in Model.UserMetaInfos)
+                                                    {
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group form-float">
+                                                                <div class="form-line">
+                                                                    <input id="@meta.InfoName" type="text" name="meta" value="@Model.UserMetaInfoDetail(meta)" maxlength="256" class="validate form-control">
+                                                                    <label for="@meta.InfoName" class="form-label">@(meta.InfoName)</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="header bg-unique-dark">
+                                            <h2>
+                                                @L("RelatedAccounts")
+                                            </h2>
+                                        </div>
+                                        <div class="body">
+                                            <div class="row clearfix">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group form-float ">
+                                                        <div class="form-line">
+                                                            <input id="accgit" type="text" name="AccGit" value="@Model.User.AccGit" maxlength="256" class="validate form-control">
+                                                            <label for="accgit" class="form-label">@L("AccGit")</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line">
+                                                            <input id="accredmine" type="text" name="AccRedmine" value="@Model.User.AccRedmine" maxlength="256" class="validate form-control">
+                                                            <label for="accredmine" class="form-label">@L("AccRedmine")</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row clearfix">
+                                                <div class="col-xs-12 col-sm-12 col-lg-6">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line">
+                                                            <input id="bankno" type="text" name="BankAccountNo" value="@Model.User.BankAccountNo" maxlength="256" class="validate form-control">
+                                                            <label for="bankno" class="form-label">@L("BankAccountNo")</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-lg-6">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line">
+                                                            <input id="bankname" type="text" name="BankAccountName" value="@Model.User.BankAccountName" maxlength="256" class="validate form-control">
+                                                            <label for="bankname" class="form-label">@L("BankAccountName")</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="fit card ">
+                                        <div class="header bg-unique-dark">
+                                            <h2>@L("ContactInfo")</h2>
+                                        </div>
+                                        <div class="body">
+                                            <div class="row clearfix">
+                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                    <div class="row clearfix">
+                                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                                            <div class="input-group form-group form-float">
+                                                                <span class="input-group-addon">
+                                                                    <i class="material-icons">date_range</i>
+                                                                </span>
+                                                                <div class="form-line has-float-label">
+                                                                    <input id="birthday" type="text" name="BirthDay" value="@Model.User.BirthDay?.ToString("dd/MM/yyyy")" maxlength="256" class="my-datepicker validate form-control">
+                                                                    <label for="birthday" class="form-label">@L("BirthDay")</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                                            <div class="input-group form-group form-float">
+                                                                <span class="input-group-addon">
+                                                                    <i class="material-icons">phone</i>
+                                                                </span>
+                                                                <div class="form-line has-float-label">
+                                                                    <input id="phonenumber" type="tel" name="PhoneNumber" value="@Model.User.PhoneNumber" maxlength="256" class="validate form-control">
+                                                                    <label for="phonenumber" class="form-label">@L("PhoneNumber")</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row clearfix">
+                                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                                            <div class="form-group form-float">
+                                                                <div class="form-line">
+                                                                    <input id="identityno" type="text" name="IdentityCardNo" value="@Model.User.IdentityCardNo" maxlength="256" class="validate form-control">
+                                                                    <label for="identityno" class="form-label">@L("IdentityCardNo")</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                                            <div class="form-group form-float">
+                                                                <div class="form-line">
+                                                                    <input id="socialinsuranceno" type="text" name="SocialInsuranceNo" value="@Model.User.SocialInsuranceNo" maxlength="256" class="validate form-control">
+                                                                    <label for="socialinsuranceno" class="form-label">@L("SocialInsuranceNo")</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                                            <div class="input-group form-group form-float">
+                                                                <span class="input-group-addon">
+                                                                    <i class="material-icons">date_range</i>
+                                                                </span>
+                                                                <div class="form-line has-float-label">
+                                                                    <input id="identitydate" type="text" name="IdentityCardIssueDate" value="@Model.User.IdentityCardIssueDate?.ToString("dd/MM/yyyy")" maxlength="256" class="my-datepicker validate form-control">
+                                                                    <label for="identitydate" class="form-label">@L("IdentityIssueDate")</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                                            <div class="form-group form-float">
+                                                                <div class="form-line">
+                                                                    <input id="identityplace" type="text" name="IdentityCardIssuePlace" value="@Model.User.IdentityCardIssuePlace" maxlength="256" class="validate form-control">
+                                                                    <label for="identityplace" class="form-label">@L("IdentityIssuePlace")</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                    <div class="row clearfix">
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group form-float ">
+                                                                <div class="form-line">
+                                                                    <input id="address" type="text" name="Address" value="@Model.User.Address" maxlength="256" class="validate form-control">
+                                                                    <label for="address" class="form-label">@L("Address")</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row clearfix">
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group form-float">
+                                                                <div class="form-line">
+                                                                    <input id="addresstemporal" type="text" name="AddressTemporal" value="@Model.User.AddressTemporal" maxlength="256" class="validate form-control">
+                                                                    <label for="addresstemporal" class="form-label">@L("AddressTemporal")</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-default btn-lg btn-raised waves-effect waves-float btn-absolute save-button" style="z-index:99999;">
+                                <strong>@L("Save")</strong>
+                            </button>
+                        </form>
+                    </div>
+                    <div role="tabpanel" class="tab-pane animated fadeIn" id="edit-company-info">
+                        <form name="UserEditForm" role="form" novalidate class="form-validation">
+                            <input type="hidden" name="Id" value="@Model.User.Id" />
+                            <div class="row clearfix">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="card">
+                                        <div class="header bg-unique-dark">
+                                            <h2>
+                                                @L("CompanyInfo")
+                                            </h2>
+                                        </div>
+                                        <div class="body">
+                                            <div class="row clearfix">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group form-float ">
+                                                        <div class="form-line">
+                                                            <label for="contracttype" class="form-label-static">@L("ContractType")</label>
+                                                            <select id="tontracttype" name="ContractType" required class="validate form-control show-tick" title="@L("PickContractType")">
+                                                                <!option value=0 @(Model.User.ContractType == 0 ? "selected" : "")>
+                                                                    @L("Official1Year")
+                                                                </!option>
+                                                                <!option value=1 @(Model.User.ContractType == 1 ? "selected" : "")>
+                                                                    @L("Official2Year")
+                                                                </!option>
+                                                                <!option value=2 @(Model.User.ContractType == 2 ? "selected" : "")>
+                                                                    @L("OfficialInfinite")
+                                                                </!option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row clearfix">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group form-float ">
+                                                        <div class="form-line">
+                                                            <label for="workingstatus" class="form-label-static">@L("WorkingStatus")</label>
+                                                            <select id="workingstatus" name="WorkingStatus" required class="validate form-control show-tick" title="@L("PickWorkingStatus")">
+                                                                <!option value=0 @(Model.User.WorkingStatus == 0 ? "selected" : "")>
+                                                                    @L("Trial")
+                                                                </!option>
+                                                                <!option value=1 @(Model.User.WorkingStatus == 1 ? "selected" : "")>
+                                                                    @L("Official")
+                                                                </!option>
+                                                                <!option value=2 @(Model.User.WorkingStatus == 2 ? "selected" : "")>
+                                                                    @L("NoLonger")
+                                                                </!option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row clearfix">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group form-float ">
+                                                        <div class="form-line">
+                                                            <label for="position" class="form-label-static">@L("Position")</label>
+                                                            <select id="position" name="PositionId" class="validate form-control show-tick" title="@L("PickPosition")">
+                                                                <option value=""></option>
+                                                                @foreach (var position in Model.Positions)
+                                                                {
+                                                                    @: <option value="@position.Id" @(Model.UserIsInPosition(position) ? "selected" : "")>@position.PositionName</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group form-float ">
+                                                        <div class="form-line">
+                                                            <label for="branch" class="form-label-static">@L("Branch")</label>
+                                                            <select id="branch" name="BranchId" class="validate form-control show-tick" title="@L("PickBranch")">
+                                                                <option value=""></option>
+                                                                @foreach (var branch in Model.Branches)
+                                                                {
+                                                                    @: <option value="@branch.Id" @(Model.UserIsInBranch(branch) ? "selected" : "")>@branch.Name</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row clearfix">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line">
+                                                            <input id="companyemail" type="email" name="CompanyEmail" required value="@Model.User.CompanyEmail" maxlength="256" class="validate form-control">
+                                                            <label for="companyemail" class="form-label">@L("CompanyEmail")</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row clearfix">
+                                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                                    <div class="input-group form-group form-float">
+                                                        <span class="input-group-addon">
+                                                            <i class="material-icons">date_range</i>
+                                                        </span>
+                                                        <div class="form-line has-float-label">
+                                                            <input id="trialstartdate" type="text" name="TrialStartDate" value="@Model.User.TrialStartDate?.ToString("dd/MM/yyyy")" maxlength="256" class="my-datepicker validate form-control">
+                                                            <label for="trialstartdate" class="form-label">@L("TrialStartDate")</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                                    <div class="input-group form-group form-float">
+                                                        <span class="input-group-addon">
+                                                            <i class="material-icons">date_range</i>
+                                                        </span>
+                                                        <div class="form-line has-float-label">
+                                                            <input id="officialstartdate" type="text" name="OfficialStartDate" value="@Model.User.OfficialStartDate?.ToString("dd/MM/yyyy")" maxlength="256" class="my-datepicker validate form-control">
+                                                            <label for="officialstartdate" class="form-label">@L("OfficialStartDate")</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row clearfix">
+                                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                                    <div class="input-group form-group form-float">
+                                                        <span class="input-group-addon">
+                                                            <i class="material-icons">date_range</i>
+                                                        </span>
+                                                        <div class="form-line has-float-label">
+                                                            <input id="enddate" type="text" name="EndDate" value="@Model.User.EndDate?.ToString("dd/MM/yyyy")" maxlength="256" class="my-datepicker validate form-control">
+                                                            <label for="enddate" class="form-label">@L("OfficialEndDate")</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-default btn-lg btn-raised waves-effect waves-float btn-absolute save-button" style="z-index:99999;">
+                                <strong>@L("Save")</strong>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane animated fadeIn" id="edit-password">
+                        <form name="UserChangePassword" role="form" novalidate class="form-validation">
+                            <div class="row clearfix">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    @*<div class="header bg-unique-dark">
+                    <h2>
+                        @L("ChangePassword")
+                    </h2>
+                </div>*@
+                                    <div class="row clearfix">
+                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                            <div class="input-group form-group form-float">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">security</i>
+                                                </span>
+                                                <div class="form-line has-float-label">
+                                                    <input type="password" id="Password" name="Password" class="form-control" required maxlength="@AbpUserBase.MaxPlainPasswordLength">
+                                                    <label for="Password" class="form-label">@L("OldPassword")</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                            <div class="input-group form-group form-float">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">security</i>
+                                                </span>
+                                                <div class="form-line has-float-label">
+                                                    <input type="password" id="NewPassword" name="NewPassword" class="form-control" required maxlength="@AbpUserBase.MaxPlainPasswordLength">
+                                                    <label for="NewPassword" class="form-label">@L("NewPassword")</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <input type="password" id="ConfirmNewPassword" name="ConfirmNewPassword" class="form-control" required maxlength="@AbpUserBase.MaxPlainPasswordLength">
+                                                    <label class="form-label">@L("ConfirmPassword")</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row clearfix">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <button type="button" class="btn btn-raised btn-danger change-button waves-effect">SUBMIT</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="UserSkillEditModal" tabindex="-1" role="dialog" aria-labelledby="UserSkillEditModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>

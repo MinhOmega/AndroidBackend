@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<localizationDictionary culture="vi">
+  <texts>
+    <text name="HomePage" value="Home page" />
+    <text name="About" value="Giới thiệu" />
+    <text name="WelcomeMessage" value="Welcome to SWHRMS!" />
+    <text name="FormIsNotValidMessage" value="Form is not valid. Please check and fix errors." />
+    <text name="TenantNameCanNotBeEmpty" value="Tenant name can not be empty" />
+    <text name="InvalidUserNameOrPassword" value="User name hay password không đúng" />
+    <text name="ThereIsNoTenantDefinedWithName{0}" value="There is no tenant defined with name {0}" />
+    <text name="TenantIsNotActive" value="Tenant {0} is not active." />
+    <text name="UserIsNotActiveAndCanNotLogin" value="Người dùng {0} không hoạt động và không thể đăng nhập." />
+    <text name="UserEmailIsNotConfirmedAndCanNotLogin">Your email address is not confirmed. You can not login.</text>
+    <text name="UserLockedOutMessage">The user account has been locked out. Please try again later.</text>
+    <text name="PleaseEnterLoginInformation" value="Hãy nhập thông tin đăng nhập" />
+    <text name="TenancyName" value="Tenancy name" />
+    <text name="UserNameOrEmail" value="User name hay email" />
+    <text name="Password" value="Mật khẩu" />
+    <text name="OldPassword" value="Mật khẩu cũ" />
+    <text name="NewPassword" value="Mật khẩu mới" />
+    <text name="ChangePassword" value="Đổi mật khẩu" />
+    <text name="ResetPassword" value="Reset Password" />
+    <text name="UpdatePassword" value="Update Password" />
+    <text name="RememberMe" value="Remember me" />
+    <text name="LogIn" value="Đăng nhập" />
+    <text name="LoginFailed" value="Đăng nhập thất bại!" />
+    <text name="Detail" value="Chi tiết" />
+    <text name="NameSurname" value="Tên họ" />
+    <text name="UserName" value="Tên đăng nhập" />
+    <text name="Name" value="Tên" />
+    <text name="Surname" value="Họ" />
+    <text name="PhoneNumber" value="Số điện thoại" />
+    <text name="EmailAddress" value="Địa chỉ Email" />
+    <text name="BirthDay" value="Ngày sinh" />
+    <text name="MyInfo" value="THÔNG TIN CỦA TÔI" />
+    <text name="AccountInfo" value="Thông tin tài khoản" />
+    <text name="CompanyInfo" value="Thông tin công ty" />
+    <text name="ContactInfo" value="Thông tin liên lạc" />
+    <text name="Position" value="Vị trí" />
+    <text name="Branch" value="Chi nhánh" />
+    <text name="RelatedAccounts" value="Tài khoản liên quan" />
+    <text name="AccGit" value="Git" />
+    <text name="AccRedmine" value="Redmine" />
+    <text name="SocialInsuranceNo" value="Mã bảo hiểm xã hội" />
+    <text name="IdentityCardNo" value="Số CMND" />
+    <text name="IdentityIssueDate" value="Ngày cấp CMND" />
+    <text name="IdentityIssuePlace" value="Nơi cấp CMND" />
+    <text name="Official1Year" value="Chính thức 1 năm" />
+    <text name="Official2Year" value="Chính thức 2 năm" />
+    <text name="OfficialInfinite" value="Chính thức vô thời hạn" />
+    <text name="Trial" value="Thử việc" />
+    <text name="Official" value="Chính thức" />
+    <text name="NoLonger" value="Đã thôi việc" />
+    <text name="OtherInfo" value="Thông tin khác" />
+    <text name="Address" value="Địa chỉ thường trú" />
+    <text name="AddressTemporal" value="Địa chỉ tạm trú" />
+    <text name="DaysAbsent" value="Số ngày vắng" />
+    <text name="Tenants" value="Tenants" />
+    <text name="SavedSuccessfully" value="Saved successfully" />
+    <text name="CreateNewTenant" value="Create new tenant" />
+    <text name="AdminEmailAddress" value="Admin email address" />
+    <text name="AdminPassword" value="Admin password" />
+    <text name="Save" value="Save" />
+    <text name="Cancel" value="Cancel" />
+    <text name="TenantName_Regex_Description" value="Tenant name must be at least 2 chars, starts with a letter and continue with letter, number, dash or underscore." />
+    <text name="DefaultPasswordIs" value="Default password is {0}" />
+    <text name="CanBeEmptyToLoginAsHost" value="Can be empty to login as host." />
+    <text name="Register" value="Register" />
+    <text name="UserRegisterDetails" value="Thông tin đăng ký" />
+    <text name="OrLoginWith" value="Or login with" />
+    <text name="WaitingForActivationMessage" value="Your account is waiting to be activated by system admin." />
+    <text name="TenantSelection" value="Tenant Selection" />
+    <text name="TenantSelection_Detail" value="Please select one of the following tenants." />
+    <text name="Logout" value="Logout" />
+    <text name="RegisterFormUserNameInvalidMessage">Please don't enter an email address for username.</text>
+    <text name="DatabaseConnectionString" value="Database connection string" />
+    <text name="Users" value="Người dùng" />
+    <text name="EmployeeCode" value="Mã nhân viên" />
+    <text name="NumberOfUsersAtLevel" value="# Nhân viên {0}" />
+    <text name="Absence" value="Vắng" />
+    <text name="EditAbsence" value="Chỉnh sửa yêu cầu vắng" />
+    <text name="AbsenceManage" value="Quản lý vắng" />
+    <text name="AbsenceManageSection" value="QUẢN LÝ VẮNG" />
+    <text name="AbsenceDetails" value="Chi tiết vắng" />
+    <text name="UserAbsenceDetails" value="Chi tiết nhân viên vắng" />
+    <text name="BookingSection" value="BOOKING" />
+    <text name="BookingInfo" value="THÔNG TIN VẮNG CỦA NHÂN VIÊN" />
+    <text name="AbsenceAllowance" value="Ngày vắng cho phép" />
+    <text name="AbsenceRemaining" value="Ngày vằng còn lại" />
+    <text name="AbsenceBooking" value="Xin phép vắng" />
+    <text name="MyAbsence" value="Yêu cầu vắng của tôi" />
+    <text name="BookDate" value="Ngày đặt phép" />
+    <text name="StartDate" value="Ngày bắt đầu" />
+    <text name="EndDate" value="Ngày kết thúc" />
+    <text name="Status" value="Trạng thái" />
+    <text name="WhoFor" value="Cho ai ?" />
+    <text name="Reason" value="Lý do" />
+    <text name="AbsenceCalendar" value="Lịch vắng" />
+    <text name="CreationTime" value="Thời gian khởi tạo" />
+    <text name="PickLevel" value="Chọn cấp độ" />
+    <text name="PickPosition" value="Chọn vị trí" />
+    <text name="PickBranch" value="Chọn chi nhánh" />
+    <text name="NoExperience" value="Không kinh nghiệm" />
+    <text name="SkillProportion" value="Phân bố kỹ năng" />
+    <text name="UserSkillTable" value="Bảng kỹ năng nhân viên" />
+    <text name="Skills" value="Kỹ năng" />
+    <text name="SkillsProfile" value="Kỹ năng cá nhân" />
+    <text name="SkillsManage" value="Quản lý kỹ năng" />
+    <text name="SkillsManageSection" value="QUẢN LÝ KỸ NĂNG" />
+    <text name="MySkills" value="KỸ NĂNG CÁ NHÂN" />
+    <text name="SkillList" value="Danh sách kỹ năng" />
+    <text name="SkillColor" value="Màu biểu diễn" />
+    <text name="CreateSkill" value="Tạo kỹ năng" />
+    <text name="EditSkill" value="Chỉnh sửa kỹ năng" />
+    <text name="SkillName" value="Tên kỹ năng" />
+    <text name="Level" value="Cấp độ" />
+    <text name="UpdateTime" value="Thời gian cập nhật" />
+    <text name="EditUserSkillOf" value="Cập nhật kỹ năng của {0}" />
+    <text name="EditThisUser" value="CẬP NHẬT THÔNG TIN CỦA {0}" />
+    <text name="BankAccountNo" value="Số tài khoản ngân hàng" />
+    <text name="BankAccountName" value="Tên ngân hàng" />
+    <text name="ContractType" value="Loại hợp đồng" />
+    <text name="WorkingStatus" value="Trạng thái làm việc" />
+    <text name="CompanyEmail" value="Email công ty" />
+    <text name="TrialStartDate" value="Ngày bắt đầu thử việc" />
+    <text name="OfficialStartDate" value="Ngày bắt đầu chính thức" />
+    <text name="OfficialEndDate" value="Ngày thôi việc" />
+    <text name="Employees" value="Nhân viên" />
+    <text name="IsActive" value="Đang hoạt động" />
+    <text name="FullName" value="Tên đầy đủ" />
+    <text name="CreateNewUser" value="Create new user" />
+    <text name="Yes" value="Yes" />
+    <text name="No" value="No" />
+    <text name="Optional" value="Optional" />
+    <text name="Request" value="Request" />
+    <text name="Approval" value="Duyệt" />
+    <text name="LeaveEmptyToSwitchToHost">Leave empty to switch to the host</text>
+    <text name="CurrentTenant">Current tenant</text>
+    <text name="NotSelected">Not selected</text>
+    <text name="Change">Change</text>
+    <text name="ChangeTenant">Change tenant</text>
+    <text name="MultiLevelMenu">Multi Level Menu</text>
+    <text name="Back">Back</text>
+    <text name="SuccessfullyRegistered">Successfully registered</text>
+    <text name="WaitingForEmailActivation">Your email address should be activated</text>
+    <text name="Roles">Vai trò</text>
+    <text name="DisplayName">Display Name</text>
+    <text name="Edit">Edit</text>
+    <text name="Delete">Delete</text>
+    <text name="CreateNewRole">Create new role</text>
+    <text name="RoleName">Role Name</text>
+    <text name="Actions">Actions</text>
+    <text name="CouldNotCompleteLoginOperation">Could not complete login operation. Please try again later.</text>
+    <text name="CouldNotValidateExternalUser">Could not validate external user</text>
+    <text name="EditRole">Edit role</text>
+    <text name="EditTenant">Edit tenant</text>
+    <text name="EditUser">Chỉnh sửa thông tin người dùng</text>
+    <text name="TenantIdIsNotActive{0}">TenantId {0} is not active</text>
+    <text name="UnknownTenantId{0}">Unknown tenantId {0}</text>
+    <text name="ThisFieldIsRequired">This field is required</text>
+    <text name="PleaseWait">Please wait...</text>
+    <text name="Administration">Administration</text>
+    <text name="ClearAll">Clear all</text>
+    <text name="ClearOthers">Clear others</text>
+    <text name="LabelOptions">Label options</text>
+    <text name="Permissions">Permissions</text>
+    <text name="RoleDescription">Role description</text>
+    <text name="Refresh">Refresh</text>
+    <text name="Create">Create</text>
+    <text name="UserDetails">Thông tin nhân viên</text>
+    <text name="UserRoles">Vai trò của user</text>
+    <text name="ConfirmPassword">Confirm password</text>
+    <text name="Version">Version</text>
+    <text name="On">On</text>
+    <text name="Off">Off</text>
+    <text name="AreYouSureWantToDelete">Are you sure want to delete {0}?</text>
+    <text name="StartTyping">Start Typing</text>
+    <text name="Skins">Skins</text>
+    <text name="Settings">Settings</text>
+    <text name="Filter">Filter</text>
+  </texts>
+</localizationDictionary>

@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SWHRMS.Web.Core</name>
+    </assembly>
+    <members>
+        <member name="M:SWHRMS.Api.V1.Controllers.AbsencesController.Index">
+            <summary>
+            Get all absence booking infos.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AbsencesController.GetBetweenDates(System.DateTime,System.DateTime)">
+            <summary>
+            Get absence booking infos between date range.
+            </summary>
+            <param name="dateFrom"></param>
+            <param name="dateTo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AbsencesController.Create(SWHRMS.Api.V1.Models.Absences.CreateAbsenceModel)">
+            <summary>
+            Create new absence booking.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AbsencesController.Update(System.Int64,SWHRMS.Api.V1.Models.Absences.UpdateAbsenceModel)">
+            <summary>
+            Update absence booking detail/Change status.
+            </summary>
+            <param name="absenceId">Absence Id to update.</param>
+            <param name="model">Update model</param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AbsencesController.Delete(System.Int64)">
+            <summary>
+            Soft delete absence booking.
+            </summary>
+            <param name="absenceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.Login(SWHRMS.Api.V1.Models.Auth.LoginModel)">
+            <summary>
+            Login
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.Logout">
+            <summary>
+            Sign Current User out. Return success message.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.Register(SWHRMS.Api.V1.Models.Auth.RegisterModel)">
+            <summary>
+            Register
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.ForgotPassword(SWHRMS.Api.V1.Models.Auth.ForgotPasswordModel)">
+            <summary>
+            Forgot Password
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.ResetPassword(SWHRMS.Api.V1.Models.Auth.ResetPasswordModel)">
+            <summary>
+            Reset Password 
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.SocialLogin(SWHRMS.Api.V1.Models.Auth.SocialAuthViewModel)">
+            <summary>
+            /Social login
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.SocialAuthProviderApi(SWHRMS.Api.V1.Models.Auth.SocialAuthViewModel)">
+            <summary>
+            Get information from facebook or google
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.ChangePassword(SWHRMS.Api.V1.Models.Auth.ChangePasswordModel)">
+            <summary>
+            Change Password
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.CheckDuplicatePhoneNumber(SWHRMS.Api.V1.Models.Auth.PhoneNumberModel)">
+            <summary>
+            Check phone duplicate
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.UpdatePhoneNumber(SWHRMS.Api.V1.Models.Auth.UpdatePhoneNumberModel)">
+            <summary>
+            Update phone number
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.UpdateProfile(SWHRMS.Api.V1.Models.Auth.UpdateProfileModel)">
+            <summary>
+            update profile
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.SetGender(System.String)">
+            <summary>
+            1: Male 2: Female 0:Unknow
+            </summary>
+            <param name="gender"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.SetPlatform(System.String)">
+            <summary>
+            Set platform
+            </summary>
+            <param name="platform"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.SetDefaultEmail(System.String)">
+            <summary>
+            Set email if email = null
+            </summary>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.GetDefaultEmail(System.String)">
+            <summary>
+            Set email => hide email by system create
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.GetFacebookToken(System.String)">
+            <summary>
+            Get user info from access_token facebook
+            </summary>
+            <param name="authorization_code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.RegisterExternalUserAsync(SWHRMS.Authentication.External.ExternalAuthUserInfo)">
+            <summary>
+            Create user from account from social
+            </summary>
+            <param name="externalUser"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.AuthController.CheckDeviceIdAndUpdate(System.String,System.String,System.String)">
+             <summary>
+             Update Devices for User
+            Ex: var jsonString = "[{ \"deviceId\":\"xxxx\",\"deviceToken\":\"zxy\"},{\"deviceId\":\"xxxx1\",\"deviceToken\":\"zxy1\"}]";
+             </summary>
+             <param name="jsonString"></param>
+             <param name="deviceId"></param>
+             <param name="deviceToken"></param>
+             <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.SkillsController.Index">
+            <summary>
+            Get all skills.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.SkillsController.Levels">
+            <summary>
+            Get all skill levels.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.SkillsController.UserSkills">
+            <summary>
+            Get all skills belonging to currently logged-in user.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SWHRMS.Api.V1.Controllers.SkillsController.SetUserSkills(SWHRMS.Api.V1.Models.Skills.SetUserSkillsModel)">
+            <summary>
+            Update/Insert/Update skills for currently logged-in user.
+            Input is an array of {string  levelId, string skillId}.
+            To delete: levelId = "", skill Id = Id for one of user's current skills.
+            To update/Insert: levelId != Any level Id from Levels table, skillId = Any skill Id from Skills table.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="P:SWHRMS.Api.V1.Models.Absences.UpdateAbsenceModel.UserId">
+            <summary>
+            Id of absent user.
+            </summary>
+        </member>
+        <member name="P:SWHRMS.Api.V1.Models.Absences.UpdateAbsenceModel.Status">
+            <summary>
+            Approval status.
+            0 - Freshly created. 1 - Approved. 2 - Not approved.
+            </summary>
+        </member>
+        <member name="P:SWHRMS.Api.V1.Models.Absences.UpdateAbsenceModel.Details">
+            <summary>
+            Reason for absence.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,27 @@
+﻿
+@model SWHRMS.Web.Models.Absence.AbsenceCalendarPartialViewModelViewModel
+
+@{
+    Layout = null;
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@L("FullName")</th>
+            <th>@L("EmployeeCode")</th>
+            <th>@L("Branch")</th>
+            <th>@L("DaysAbsent")</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.FullName</td>
+                <td>@user.UserName</td>
+                <td>@(user.Branch != null ? user.Branch.Name : "")</td>
+                <td>@(user.DaysAbsent != null ? user.DaysAbsent : 0)</td>
+            </tr>
+        }
+    </tbody>
+</table>
